@@ -522,12 +522,153 @@
     animation: pulse 2.5s infinite;
   }
 
-  /* Scroll reveal */
-  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
-  .reveal.visible { opacity: 1; transform: none; }
-  .reveal-delay-1 { transition-delay: 0.1s; }
-  .reveal-delay-2 { transition-delay: 0.2s; }
-  .reveal-delay-3 { transition-delay: 0.3s; }
+  /* === SCROLL REVEAL - upgraded === */
+  .reveal {
+    opacity: 0;
+    transform: translateY(48px) scale(0.97);
+    filter: blur(4px);
+    transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1),
+                transform 0.75s cubic-bezier(0.16,1,0.3,1),
+                filter 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; filter: none; }
+  .reveal-delay-1 { transition-delay: 0.12s; }
+  .reveal-delay-2 { transition-delay: 0.24s; }
+  .reveal-delay-3 { transition-delay: 0.36s; }
+  .reveal-left {
+    opacity: 0; transform: translateX(-50px) scale(0.97); filter: blur(4px);
+    transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1), filter 0.6s ease;
+  }
+  .reveal-left.visible { opacity: 1; transform: none; filter: none; }
+  .reveal-right {
+    opacity: 0; transform: translateX(50px) scale(0.97); filter: blur(4px);
+    transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1), filter 0.6s ease;
+  }
+  .reveal-right.visible { opacity: 1; transform: none; filter: none; }
+
+  /* === SKILL GROUP hover glow + lift === */
+  .skill-group { position: relative; overflow: hidden; }
+  .skill-group::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(127,119,221,0.14), transparent 70%);
+    opacity: 0; transition: opacity 0.4s ease; pointer-events: none;
+  }
+  .skill-group:hover::before { opacity: 1; }
+  .skill-group:hover {
+    border-color: rgba(127,119,221,0.45) !important;
+    transform: translateY(-8px) scale(1.025) !important;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.5), 0 0 36px rgba(127,119,221,0.12);
+  }
+
+  /* === STAT CARD hover === */
+  .stat-card { transition: border-color 0.25s, transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s; }
+  .stat-card:hover {
+    transform: translateY(-6px) scale(1.05);
+    box-shadow: 0 16px 36px rgba(0,0,0,0.4), 0 0 24px rgba(127,119,221,0.1);
+    border-color: rgba(127,119,221,0.35) !important;
+  }
+
+  /* === PROJECT ROW hover sweep === */
+  .project-row { position: relative; overflow: hidden; }
+  .project-row::after {
+    content: '';
+    position: absolute; left: -120%; top: 0; bottom: 0; width: 70%;
+    background: linear-gradient(90deg, transparent, rgba(127,119,221,0.07), transparent);
+    transition: left 0.55s ease; pointer-events: none;
+  }
+  .project-row:hover::after { left: 160%; }
+  .project-row:hover {
+    background: var(--bg2) !important;
+    border-color: rgba(127,119,221,0.25) !important;
+    transform: translateX(8px);
+    transition: background 0.2s, border-color 0.2s, transform 0.35s cubic-bezier(0.16,1,0.3,1) !important;
+  }
+
+  /* === CONTACT LINK hover === */
+  .contact-link { position: relative; overflow: hidden; }
+  .contact-link::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(127,119,221,0.08), transparent 60%);
+    opacity: 0; transition: opacity 0.3s ease;
+  }
+  .contact-link:hover::before { opacity: 1; }
+  .contact-link:hover {
+    border-color: rgba(127,119,221,0.4) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.35), 0 0 20px rgba(127,119,221,0.08);
+    transition: all 0.3s cubic-bezier(0.16,1,0.3,1) !important;
+  }
+  .cl-icon { transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), background 0.25s; }
+  .contact-link:hover .cl-icon {
+    transform: scale(1.18) rotate(-6deg);
+    background: var(--accent-bg) !important;
+    border-color: rgba(127,119,221,0.3) !important;
+  }
+
+  /* === BUTTON hover ripple === */
+  .btn-fill { position: relative; overflow: hidden; }
+  .btn-fill::after {
+    content: '';
+    position: absolute; top: 50%; left: 50%;
+    width: 0; height: 0;
+    background: rgba(255,255,255,0.18);
+    border-radius: 50%;
+    transform: translate(-50%,-50%);
+    transition: width 0.45s ease, height 0.45s ease, opacity 0.45s ease;
+    opacity: 0;
+  }
+  .btn-fill:hover::after { width: 240px; height: 240px; opacity: 1; }
+  .btn-fill:hover { transform: translateY(-4px) !important; box-shadow: 0 14px 36px rgba(127,119,221,0.45) !important; }
+  .btn-outline:hover {
+    color: var(--accent2) !important;
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 24px rgba(127,119,221,0.22), inset 0 0 20px rgba(127,119,221,0.05) !important;
+    transform: translateY(-4px) !important;
+  }
+
+  /* === NAV link underline === */
+  .nav-links a { position: relative; }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -2px; left: 0;
+    width: 0; height: 1px; background: var(--accent);
+    transition: width 0.25s ease;
+  }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* === SKILL TAG hover === */
+  .skill-tag { transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.25s cubic-bezier(0.34,1.56,0.64,1); }
+  .skill-tag:hover {
+    color: var(--accent2) !important;
+    border-color: rgba(127,119,221,0.4) !important;
+    background: var(--accent-bg) !important;
+    transform: translateY(-3px) scale(1.08);
+  }
+
+  /* === HERO BADGE hover === */
+  .hero-badge { transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s; }
+  .hero-badge:hover { transform: scale(1.06); box-shadow: 0 0 24px rgba(127,119,221,0.25); }
+
+  /* === HERO NAME glitch on hover === */
+  .hero-title .line2 { display: inline-block; transition: letter-spacing 0.3s; }
+  .hero-title .line2:hover {
+    letter-spacing: 0.02em;
+    animation: glitch 0.5s ease forwards;
+    text-shadow: 3px 0 var(--accent2), -2px 0 rgba(255,80,80,0.5);
+  }
+  @keyframes glitch {
+    0%   { transform: translate(-3px,0) skew(-1deg); }
+    15%  { transform: translate(3px,0) skew(1deg); }
+    30%  { transform: translate(-2px,0) skew(-0.5deg); }
+    45%  { transform: translate(2px,0) skew(0.5deg); }
+    60%  { transform: translate(-1px,0); }
+    100% { transform: translate(0); }
+  }
+
+  /* === SECTION NUM glow on reveal === */
+  .section-num { transition: color 0.4s, text-shadow 0.4s; }
+  .section-header.visible .section-num { color: var(--accent2); text-shadow: 0 0 16px rgba(127,119,221,0.55); }
 </style>
 </head>
 <body>
@@ -589,7 +730,7 @@
   </div>
 
   <div class="about-grid">
-    <div class="about-text reveal">
+    <div class="about-text reveal-left">
       <p>
         兵庫県在住の高校生。<strong>数学</strong>と<strong>世界史</strong>が得意で、
         論理的に物事を考えることが好き。<strong>国際安全保障</strong>や地政学にも深い関心を持つ。
@@ -605,7 +746,7 @@
       </p>
     </div>
 
-    <div class="about-stats reveal reveal-delay-2">
+    <div class="about-stats reveal-right">
       <div class="stat-card">
         <div class="stat-num">AU</div>
         <div class="stat-label">Exchange Experience</div>
@@ -837,12 +978,61 @@
     document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
   });
 
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
+  // Scroll reveal - all types
+  const allReveal = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .section-header');
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.12 });
-  reveals.forEach(el => obs.observe(el));
+  }, { threshold: 0.1 });
+  allReveal.forEach(el => obs.observe(el));
+
+  // Mouse parallax for hero glow
+  const glow = document.querySelector('.hero-glow');
+  document.addEventListener('mousemove', e => {
+    if (!glow) return;
+    const dx = (e.clientX / window.innerWidth - 0.5) * 40;
+    const dy = (e.clientY / window.innerHeight - 0.5) * 30;
+    glow.style.transform = 'translate(calc(-50% + ' + dx + 'px), calc(-50% + ' + dy + 'px))';
+  });
+
+  // Tilt effect for skill cards
+  document.querySelectorAll('.skill-group, .stat-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.setProperty('--tilt-x', (y * -12) + 'deg');
+      card.style.setProperty('--tilt-y', (x * 12) + 'deg');
+      card.style.transform = 'perspective(600px) rotateX(' + (y*-10) + 'deg) rotateY(' + (x*10) + 'deg) translateY(-8px) scale(1.02)';
+    });
+    card.addEventListener('mouseleave', e => {
+      card.style.transform = '';
+    });
+  });
+
+  // Counter animation for stat numbers
+  function animateCounter(el, target, suffix) {
+    let start = 0;
+    const isNum = !isNaN(parseInt(target));
+    if (!isNum) return;
+    const num = parseInt(target);
+    const step = Math.ceil(num / 30);
+    const timer = setInterval(() => {
+      start = Math.min(start + step, num);
+      el.textContent = start + suffix;
+      if (start >= num) clearInterval(timer);
+    }, 40);
+  }
+  const statNums = document.querySelectorAll('.stat-num');
+  const statObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target;
+        const txt = el.textContent.trim();
+        if (txt === '2') { animateCounter(el, 2, ''); statObs.unobserve(el); }
+      }
+    });
+  }, { threshold: 0.5 });
+  statNums.forEach(el => statObs.observe(el));
 </script>
 </body>
 </html>
