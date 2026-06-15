@@ -8,18 +8,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
-<script>
-  (function() {
-    const savedTheme = localStorage.getItem('theme');
-    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-    document.documentElement.dataset.theme = savedTheme || (prefersLight ? 'light' : 'dark');
-  })();
-</script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    color-scheme: dark;
     --bg: #0b0b0e;
     --bg2: #111116;
     --bg3: #17171d;
@@ -33,39 +25,8 @@
     --accent-bg: rgba(127,119,221,0.1);
     --green: #1d9e75;
     --green-bg: rgba(29,158,117,0.12);
-    --nav-bg: rgba(11,11,14,0.85);
-    --hero-grid-line: rgba(255,255,255,0.025);
-    --headline-stroke: rgba(255,255,255,0.2);
-    --button-text: #0b0b0e;
-    --shadow-strong: rgba(0,0,0,0.5);
-    --shadow-card: rgba(0,0,0,0.4);
-    --shadow-soft: rgba(0,0,0,0.35);
     --font-display: 'Syne', sans-serif;
     --font-mono: 'DM Mono', monospace;
-  }
-
-  :root[data-theme="light"] {
-    color-scheme: light;
-    --bg: #f7f6fb;
-    --bg2: #ffffff;
-    --bg3: #eceaf6;
-    --border: rgba(31,27,54,0.10);
-    --border2: rgba(31,27,54,0.18);
-    --text: #171520;
-    --muted: #8a849a;
-    --muted2: #5f596f;
-    --accent: #665bd6;
-    --accent2: #4d42ba;
-    --accent-bg: rgba(102,91,214,0.12);
-    --green: #168561;
-    --green-bg: rgba(22,133,97,0.12);
-    --nav-bg: rgba(247,246,251,0.86);
-    --hero-grid-line: rgba(31,27,54,0.055);
-    --headline-stroke: rgba(31,27,54,0.24);
-    --button-text: #ffffff;
-    --shadow-strong: rgba(31,27,54,0.18);
-    --shadow-card: rgba(31,27,54,0.14);
-    --shadow-soft: rgba(31,27,54,0.12);
   }
 
   html { scroll-behavior: smooth; }
@@ -75,13 +36,11 @@
     color: var(--text);
     font-family: var(--font-display);
     overflow-x: hidden;
-    transition: background 0.25s ease, color 0.25s ease;
+    cursor: none;
   }
-  body.has-custom-cursor { cursor: none; }
 
   /* Custom cursor */
   .cursor {
-    display: none;
     position: fixed;
     width: 10px; height: 10px;
     background: var(--accent);
@@ -93,7 +52,6 @@
     mix-blend-mode: screen;
   }
   .cursor-ring {
-    display: none;
     position: fixed;
     width: 36px; height: 36px;
     border: 1px solid rgba(127,119,221,0.4);
@@ -103,9 +61,7 @@
     transform: translate(-50%, -50%);
     transition: transform 0.18s ease, width 0.2s ease, height 0.2s ease, opacity 0.3s ease;
   }
-  body.has-custom-cursor .cursor,
-  body.has-custom-cursor .cursor-ring { display: block; }
-  body.has-custom-cursor:hover .cursor { opacity: 1; }
+  body:hover .cursor { opacity: 1; }
 
   /* Noise overlay */
   body::before {
@@ -132,7 +88,7 @@
     transition: border-color 0.3s, background 0.3s;
   }
   nav.scrolled {
-    background: var(--nav-bg);
+    background: rgba(11,11,14,0.85);
     backdrop-filter: blur(12px);
     border-color: var(--border);
   }
@@ -156,7 +112,6 @@
     transition: color 0.2s;
   }
   .nav-links a:hover { color: var(--text); }
-  .nav-actions { display: flex; align-items: center; gap: 12px; }
   .nav-cta {
     font-family: var(--font-mono);
     font-size: 12px;
@@ -167,29 +122,7 @@
     text-decoration: none;
     transition: background 0.2s, color 0.2s;
   }
-  .nav-cta:hover { background: var(--accent); color: var(--button-text); }
-  .theme-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    min-width: 92px;
-    border: 1px solid var(--border2);
-    background: var(--bg2);
-    color: var(--text);
-    border-radius: 999px;
-    padding: 7px 12px;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    cursor: pointer;
-    transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.15s;
-  }
-  .theme-toggle:hover {
-    border-color: var(--accent);
-    color: var(--accent2);
-    transform: translateY(-1px);
-  }
-  .theme-toggle-icon { font-size: 14px; line-height: 1; }
-  body.has-custom-cursor .theme-toggle { cursor: none; }
+  .nav-cta:hover { background: var(--accent); color: #0b0b0e; }
 
   /* HERO */
   #hero {
@@ -215,8 +148,8 @@
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(var(--hero-grid-line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--hero-grid-line) 1px, transparent 1px);
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
     background-size: 60px 60px;
     pointer-events: none;
     mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
@@ -259,7 +192,7 @@
   .hero-title .line2 { color: var(--accent); display: block; }
   .hero-title .line3 {
     color: transparent;
-    -webkit-text-stroke: 1px var(--headline-stroke);
+    -webkit-text-stroke: 1px rgba(255,255,255,0.2);
     display: block;
   }
 
@@ -281,13 +214,14 @@
   }
   .btn-fill {
     background: var(--accent);
-    color: var(--button-text);
+    color: #0b0b0e;
     border: none;
     padding: 13px 28px;
     border-radius: 6px;
     font-family: var(--font-display);
     font-size: 13px;
     font-weight: 600;
+    cursor: none;
     transition: opacity 0.2s, transform 0.15s;
   }
   .btn-fill:hover { opacity: 0.85; transform: translateY(-1px); }
@@ -300,6 +234,7 @@
     font-family: var(--font-display);
     font-size: 13px;
     font-weight: 500;
+    cursor: none;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
@@ -467,6 +402,7 @@
     padding: 24px 28px;
     border: 1px solid transparent;
     border-radius: 10px;
+    cursor: none;
     transition: background 0.2s, border-color 0.2s;
     text-decoration: none;
     color: inherit;
@@ -476,9 +412,6 @@
     border-color: var(--border);
   }
   .project-row:hover .project-arrow { opacity: 1; transform: translate(3px, -3px); }
-  body.has-custom-cursor .btn-fill,
-  body.has-custom-cursor .btn-outline,
-  body.has-custom-cursor .project-row { cursor: none; }
   .project-num {
     font-family: var(--font-mono);
     font-size: 12px;
@@ -626,14 +559,14 @@
   .skill-group:hover {
     border-color: rgba(127,119,221,0.45) !important;
     transform: translateY(-8px) scale(1.025) !important;
-    box-shadow: 0 24px 48px var(--shadow-strong), 0 0 36px rgba(127,119,221,0.12);
+    box-shadow: 0 24px 48px rgba(0,0,0,0.5), 0 0 36px rgba(127,119,221,0.12);
   }
 
   /* === STAT CARD hover === */
   .stat-card { transition: border-color 0.25s, transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s; }
   .stat-card:hover {
     transform: translateY(-6px) scale(1.05);
-    box-shadow: 0 16px 36px var(--shadow-card), 0 0 24px rgba(127,119,221,0.1);
+    box-shadow: 0 16px 36px rgba(0,0,0,0.4), 0 0 24px rgba(127,119,221,0.1);
     border-color: rgba(127,119,221,0.35) !important;
   }
 
@@ -665,7 +598,7 @@
   .contact-link:hover {
     border-color: rgba(127,119,221,0.4) !important;
     transform: translateY(-3px);
-    box-shadow: 0 10px 28px var(--shadow-soft), 0 0 20px rgba(127,119,221,0.08);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.35), 0 0 20px rgba(127,119,221,0.08);
     transition: all 0.3s cubic-bezier(0.16,1,0.3,1) !important;
   }
   .cl-icon { transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), background 0.25s; }
@@ -738,69 +671,6 @@
   .section-num { transition: color 0.4s, text-shadow 0.4s; }
   .section-header.visible .section-num { color: var(--accent2); text-shadow: 0 0 16px rgba(127,119,221,0.55); }
 
-
-
-  @media (max-width: 800px) {
-    nav {
-      align-items: flex-start;
-      gap: 14px;
-      padding: 16px 22px;
-    }
-    .nav-links {
-      flex: 1;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      gap: 12px 16px;
-    }
-    .nav-actions { margin-left: auto; }
-    .nav-cta { display: none; }
-    .theme-toggle { min-width: 82px; padding: 7px 10px; }
-    #hero { padding: 128px 22px 72px; }
-    section { padding: 76px 22px; }
-    .hero-actions { flex-direction: column; align-items: stretch; }
-    .hero-actions > * { justify-content: center; text-align: center; }
-    .hero-scroll { left: 22px; }
-    .section-header { margin-bottom: 36px; }
-    .about-grid,
-    .contact-inner,
-    .skills-grid { grid-template-columns: 1fr; gap: 28px; }
-    .about-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .project-row {
-      grid-template-columns: 1fr;
-      gap: 12px;
-      padding: 22px;
-    }
-    .project-tags-row { flex-wrap: wrap; }
-    .project-arrow { display: none; }
-    .contact-headline { font-size: 40px; }
-    footer { flex-direction: column; align-items: flex-start; gap: 12px; padding: 24px 22px; }
-  }
-
-  @media (max-width: 480px) {
-    .nav-logo { width: 100%; }
-    .nav-links { justify-content: flex-start; }
-    .hero-title { font-size: clamp(44px, 18vw, 64px); }
-    .about-stats { grid-template-columns: 1fr; }
-    .contact-link { padding: 16px; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      scroll-behavior: auto !important;
-      transition-duration: 0.01ms !important;
-    }
-    .reveal,
-    .reveal-left,
-    .reveal-right {
-      opacity: 1;
-      transform: none;
-      filter: none;
-    }
-  }
-
   /* === PARTICLE CANVAS === */
   #particle-canvas {
     position: fixed;
@@ -826,13 +696,7 @@
     <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <div class="nav-actions">
-    <button class="theme-toggle" id="themeToggle" type="button" aria-label="ライトテーマに切り替え" aria-pressed="false">
-      <span class="theme-toggle-icon" aria-hidden="true">☾</span>
-      <span class="theme-toggle-text">Dark</span>
-    </button>
-    <a href="#contact" class="nav-cta">Get in touch</a>
-  </div>
+  <a href="#contact" class="nav-cta">Get in touch</a>
 </nav>
 
 <!-- HERO -->
@@ -976,7 +840,7 @@
   </div>
 
   <div class="projects-list">
-    <article class="project-row reveal">
+    <a class="project-row reveal" href="#">
       <span class="project-num">01</span>
       <div class="project-info">
         <div class="project-name">Xeros — Worldbuilding Universe</div>
@@ -987,9 +851,9 @@
         <span class="project-tag">Writing</span>
       </div>
       <span class="project-arrow">↗</span>
-    </article>
+    </a>
 
-    <article class="project-row reveal reveal-delay-1">
+    <a class="project-row reveal reveal-delay-1" href="#">
       <span class="project-num">02</span>
       <div class="project-info">
         <div class="project-name">Geopolitics Research Notes</div>
@@ -1000,9 +864,9 @@
         <span class="project-tag">Security</span>
       </div>
       <span class="project-arrow">↗</span>
-    </article>
+    </a>
 
-    <article class="project-row reveal reveal-delay-2">
+    <a class="project-row reveal reveal-delay-2" href="#">
       <span class="project-num">03</span>
       <div class="project-info">
         <div class="project-name">Jurassic Park — Survival Kit Concept</div>
@@ -1013,7 +877,7 @@
         <span class="project-tag">Design</span>
       </div>
       <span class="project-arrow">↗</span>
-    </article>
+    </a>
   </div>
 </section>
 
@@ -1085,67 +949,40 @@
 </footer>
 
 <script>
-  // Theme toggle
-  const themeToggle = document.getElementById('themeToggle');
-  const themeIcon = themeToggle.querySelector('.theme-toggle-icon');
-  const themeText = themeToggle.querySelector('.theme-toggle-text');
-
-  function applyTheme(theme) {
-    const isLight = theme === 'light';
-    document.documentElement.dataset.theme = theme;
-    themeToggle.setAttribute('aria-pressed', String(isLight));
-    themeToggle.setAttribute('aria-label', isLight ? 'ダークテーマに切り替え' : 'ライトテーマに切り替え');
-    themeIcon.textContent = isLight ? '☼' : '☾';
-    themeText.textContent = isLight ? 'Light' : 'Dark';
-  }
-
-  applyTheme(document.documentElement.dataset.theme || 'dark');
-
-  themeToggle.addEventListener('click', () => {
-    const nextTheme = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
-    localStorage.setItem('theme', nextTheme);
-    applyTheme(nextTheme);
-  });
-
   // Custom cursor
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
-  const canUseCustomCursor = window.matchMedia('(pointer: fine)').matches && cursor && ring;
   let mx = 0, my = 0, rx = 0, ry = 0;
 
-  if (canUseCustomCursor) {
-    document.body.classList.add('has-custom-cursor');
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
 
-    document.addEventListener('mousemove', e => {
-      mx = e.clientX; my = e.clientY;
-      cursor.style.left = mx + 'px';
-      cursor.style.top = my + 'px';
-    });
-
-    function animRing() {
-      rx += (mx - rx) * 0.12;
-      ry += (my - ry) * 0.12;
-      ring.style.left = rx + 'px';
-      ring.style.top = ry + 'px';
-      requestAnimationFrame(animRing);
-    }
-    animRing();
-
-    document.querySelectorAll('a, button, .project-row').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.width = '18px';
-        cursor.style.height = '18px';
-        ring.style.width = '52px';
-        ring.style.height = '52px';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.width = '10px';
-        cursor.style.height = '10px';
-        ring.style.width = '36px';
-        ring.style.height = '36px';
-      });
-    });
+  function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
   }
+  animRing();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '18px';
+      cursor.style.height = '18px';
+      ring.style.width = '52px';
+      ring.style.height = '52px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '10px';
+      cursor.style.height = '10px';
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+    });
+  });
 
   // Nav scroll
   window.addEventListener('scroll', () => {
@@ -1271,7 +1108,7 @@
         const dx = this.x - mouse.x;
         const dy = this.y - mouse.y;
         const dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist > 0 && dist < 90) {
+        if (dist < 90) {
           const force = (90 - dist) / 90;
           this.x += (dx / dist) * force * 3.5;
           this.y += (dy / dist) * force * 3.5;
