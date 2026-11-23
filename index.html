@@ -55,9 +55,34 @@
     .nav-links a{text-decoration:none;color:var(--muted);font-size:12px;letter-spacing:.06em;transition:color .2s}
     .nav-links a:hover,.nav-links a:focus-visible{color:var(--accent)}
     .nav-actions{display:flex;align-items:center;gap:10px}
-    .theme-toggle,.menu-toggle{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:999px;padding:8px 12px;cursor:pointer}
-    .theme-toggle{font:12px 'DM Mono',monospace;min-width:76px}
-    .menu-toggle{display:none}
+.menu-toggle{display:none}
+
+    .settings-toggle{display:grid;place-items:center;width:40px;height:40px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--surface);color:var(--text);cursor:pointer;transition:border-color .2s,background .2s,transform .25s}
+    .settings-toggle:hover{border-color:var(--accent);background:var(--accent-soft);transform:rotate(28deg)}
+    .settings-toggle svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+    .settings-backdrop{position:fixed;inset:0;z-index:190;background:rgba(3,9,19,.42);backdrop-filter:blur(3px);opacity:0;transition:opacity .3s}
+    .settings-backdrop:not([hidden]){display:block;opacity:1}
+    .settings-panel{position:fixed;z-index:200;inset:0 0 0 auto;width:min(410px,100%);padding:34px 30px 24px;background:color-mix(in srgb,var(--surface) 76%,transparent);border-left:1px solid var(--line);box-shadow:-24px 0 80px rgba(0,0,0,.2);backdrop-filter:blur(28px) saturate(150%);-webkit-backdrop-filter:blur(28px) saturate(150%);transform:translateX(105%);visibility:hidden;transition:transform .38s cubic-bezier(.2,.75,.25,1),visibility .38s;display:flex;flex-direction:column}
+    .settings-panel.open{transform:translateX(0);visibility:visible}
+    .settings-header{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:27px;border-bottom:1px solid var(--line)}
+    .settings-kicker{font-size:9px;letter-spacing:.2em;color:var(--accent)}
+    .settings-header h2{font-size:27px;margin:7px 0 0;letter-spacing:-.04em}
+    .settings-close{width:36px;height:36px;border:1px solid var(--line);border-radius:50%;background:var(--accent-soft);color:var(--text);font-size:23px;line-height:1;cursor:pointer;transition:background .2s,border-color .2s}
+    .settings-close:hover{border-color:var(--accent);background:var(--surface-2)}
+    .settings-content{padding-top:28px}
+    .setting-group{padding:0 0 27px;margin:0 0 27px;border-bottom:1px solid var(--line)}
+    .setting-group h3{margin:0 0 13px;font:500 11px 'DM Mono',monospace;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+    .setting-options{display:grid;gap:8px}
+    .setting-option{display:flex;align-items:center;gap:12px;width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:8px;background:rgba(120,155,200,.035);color:var(--text);text-align:left;font-size:13px;cursor:pointer;transition:border-color .2s,background .2s}
+    .setting-option:hover{border-color:rgba(104,170,255,.45);background:var(--accent-soft)}
+    .setting-option.active{border-color:var(--accent);background:var(--accent-soft)}
+    .option-icon{display:grid;place-items:center;width:25px;height:25px;border-radius:6px;background:var(--accent-soft);color:var(--accent);font-size:16px}
+    .language-icon{font:12px 'DM Mono',monospace}
+    .option-check{margin-left:auto;color:var(--accent);opacity:0;font-size:14px}
+    .setting-option.active .option-check{opacity:1}
+    .settings-footer{margin-top:auto;padding-top:18px;border-top:1px solid var(--line);font-size:9px;letter-spacing:.13em;color:var(--subtle)}
+    .settings-footer span{color:var(--accent);padding:0 5px}
+    body.settings-open{overflow:hidden}
     .hero{min-height:760px;min-height:100svh;display:grid;align-items:center;position:relative;isolation:isolate;padding:140px 0 100px;overflow:hidden}
     .hero::before{content:"";position:absolute;z-index:-2;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:68px 68px;mask-image:radial-gradient(ellipse at 65% 45%,#000 5%,transparent 72%);opacity:.42}
     .hero::after{content:"";position:absolute;z-index:-1;width:600px;height:600px;right:-130px;top:12%;border-radius:50%;background:radial-gradient(circle,rgba(56,135,230,.18),transparent 68%);pointer-events:none}
@@ -173,11 +198,38 @@
         <li><a href="#journal">Journal</a></li>
       </ul>
       <div class="nav-actions">
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="テーマを切り替える">☾ Dark</button>
+        <button class="settings-toggle" id="settingsToggle" type="button" aria-label="設定を開く" aria-expanded="false" aria-controls="settingsPanel">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/><path d="m19.4 15 .1.1a1.8 1.8 0 0 1-2.5 2.5l-.1-.1a1.8 1.8 0 0 0-3 .9v.2a1.8 1.8 0 0 1-3.6 0v-.2a1.8 1.8 0 0 0-3-.9l-.1.1a1.8 1.8 0 1 1-2.5-2.5l.1-.1a1.8 1.8 0 0 0-.9-3H3.7a1.8 1.8 0 0 1 0-3.6h.2a1.8 1.8 0 0 0 .9-3l-.1-.1a1.8 1.8 0 1 1 2.5-2.5l.1.1a1.8 1.8 0 0 0 3-.9v-.2a1.8 1.8 0 0 1 3.6 0v.2a1.8 1.8 0 0 0 3 .9l.1-.1a1.8 1.8 0 1 1 2.5 2.5l-.1.1a1.8 1.8 0 0 0 .9 3h.2a1.8 1.8 0 0 1 0 3.6h-.2a1.8 1.8 0 0 0-.9 3Z"/></svg>
+        </button>
         <button class="menu-toggle" id="menuToggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="navLinks">☰</button>
       </div>
     </nav>
   </header>
+
+  <div class="settings-backdrop" id="settingsBackdrop" hidden></div>
+  <aside class="settings-panel" id="settingsPanel" aria-hidden="true" aria-labelledby="settingsTitle">
+    <div class="settings-header">
+      <div><span class="settings-kicker mono">PREFERENCES</span><h2 id="settingsTitle">Settings</h2></div>
+      <button class="settings-close" id="settingsClose" type="button" aria-label="設定を閉じる">×</button>
+    </div>
+    <div class="settings-content">
+      <section class="setting-group" aria-labelledby="themeLabel">
+        <h3 id="themeLabel">Theme</h3>
+        <div class="setting-options" role="group" aria-label="Theme">
+          <button class="setting-option" type="button" data-theme-choice="light"><span class="option-icon">☼</span>Light<span class="option-check">✓</span></button>
+          <button class="setting-option" type="button" data-theme-choice="dark"><span class="option-icon">☾</span>Dark<span class="option-check">✓</span></button>
+        </div>
+      </section>
+      <section class="setting-group" aria-labelledby="languageLabel">
+        <h3 id="languageLabel">Language</h3>
+        <div class="setting-options" role="group" aria-label="Language">
+          <button class="setting-option" type="button" data-language-choice="ja"><span class="option-icon language-icon">あ</span>日本語<span class="option-check">✓</span></button>
+          <button class="setting-option" type="button" data-language-choice="en"><span class="option-icon language-icon">A</span>English<span class="option-check">✓</span></button>
+        </div>
+      </section>
+    </div>
+    <div class="settings-footer mono">YUMA ETO <span>·</span> SETTINGS</div>
+  </aside>
 
   <main id="main">
     <section class="hero" id="home">
@@ -323,23 +375,66 @@
 
   <script>
     const root = document.documentElement;
-    const themeButton = document.getElementById('themeToggle');
     const menuButton = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
     const topbar = document.getElementById('topbar');
+    const settingsToggle = document.getElementById('settingsToggle');
+    const settingsPanel = document.getElementById('settingsPanel');
+    const settingsBackdrop = document.getElementById('settingsBackdrop');
+    const settingsClose = document.getElementById('settingsClose');
 
-    function updateThemeButton() {
-      const light = root.dataset.theme === 'light';
-      themeButton.textContent = light ? '☼ Light' : '☾ Dark';
-      themeButton.setAttribute('aria-label', light ? 'ダークテーマに切り替える' : 'ライトテーマに切り替える');
+    function setTheme(theme) {
+      root.dataset.theme = theme;
+      try { localStorage.setItem('theme', theme); } catch (_) {}
+      document.querySelectorAll('[data-theme-choice]').forEach(button => {
+        const active = button.dataset.themeChoice === theme;
+        button.classList.toggle('active', active);
+        button.setAttribute('aria-pressed', String(active));
+      });
     }
-    updateThemeButton();
-    themeButton.addEventListener('click', () => {
-      const next = root.dataset.theme === 'light' ? 'dark' : 'light';
-      root.dataset.theme = next;
-      try { localStorage.setItem('theme', next); } catch (_) {}
-      updateThemeButton();
+    function setLanguage(language) {
+      root.lang = language === 'ja' ? 'ja' : 'en';
+      try { localStorage.setItem('language', language); } catch (_) {}
+      document.querySelectorAll('[data-language-choice]').forEach(button => {
+        const active = button.dataset.languageChoice === language;
+        button.classList.toggle('active', active);
+        button.setAttribute('aria-pressed', String(active));
+      });
+      const english = language === 'en';
+      const labels = english
+        ? ['About','Projects','Research','Learning','Journal']
+        : ['About','Projects','Research','Learning','Journal'];
+      navLinks.querySelectorAll('a').forEach((link,index) => { link.textContent = labels[index]; });
+      document.documentElement.dataset.language = language;
+    }
+    function openSettings() {
+      settingsBackdrop.hidden = false;
+      requestAnimationFrame(() => settingsPanel.classList.add('open'));
+      settingsPanel.setAttribute('aria-hidden','false');
+      settingsToggle.setAttribute('aria-expanded','true');
+      document.body.classList.add('settings-open');
+      settingsClose.focus();
+    }
+    function closeSettings() {
+      settingsPanel.classList.remove('open');
+      settingsPanel.setAttribute('aria-hidden','true');
+      settingsToggle.setAttribute('aria-expanded','false');
+      document.body.classList.remove('settings-open');
+      window.setTimeout(() => { settingsBackdrop.hidden = true; }, 380);
+      settingsToggle.focus();
+    }
+    settingsToggle.addEventListener('click', openSettings);
+    settingsClose.addEventListener('click', closeSettings);
+    settingsBackdrop.addEventListener('click', closeSettings);
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && settingsPanel.classList.contains('open')) closeSettings();
     });
+    document.querySelectorAll('[data-theme-choice]').forEach(button => button.addEventListener('click', () => setTheme(button.dataset.themeChoice)));
+    document.querySelectorAll('[data-language-choice]').forEach(button => button.addEventListener('click', () => setLanguage(button.dataset.languageChoice)));
+    let savedTheme = 'dark', savedLanguage = 'ja';
+    try { savedTheme = localStorage.getItem('theme') || root.dataset.theme || 'dark'; savedLanguage = localStorage.getItem('language') || 'ja'; } catch (_) {}
+    setTheme(savedTheme);
+    setLanguage(savedLanguage);
 
     menuButton.addEventListener('click', () => {
       const open = menuButton.getAttribute('aria-expanded') !== 'true';
