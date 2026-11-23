@@ -59,7 +59,7 @@
 
     .settings-toggle{display:grid;place-items:center;width:40px;height:40px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--surface);color:var(--text);cursor:pointer;transition:border-color .2s,background .2s,transform .25s}
     .settings-toggle:hover{border-color:var(--accent);background:var(--accent-soft);transform:rotate(28deg)}
-    .settings-toggle svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+    .settings-toggle{font-size:21px;line-height:1}
     .settings-backdrop{position:fixed;inset:0;z-index:190;background:rgba(3,9,19,.42);backdrop-filter:blur(3px);opacity:0;transition:opacity .3s}
     .settings-backdrop:not([hidden]){display:block;opacity:1}
     .settings-panel{position:fixed;z-index:200;inset:0 0 0 auto;width:min(410px,100%);padding:34px 30px 24px;background:color-mix(in srgb,var(--surface) 76%,transparent);border-left:1px solid var(--line);box-shadow:-24px 0 80px rgba(0,0,0,.2);backdrop-filter:blur(28px) saturate(150%);-webkit-backdrop-filter:blur(28px) saturate(150%);transform:translateX(105%);visibility:hidden;transition:transform .38s cubic-bezier(.2,.75,.25,1),visibility .38s;display:flex;flex-direction:column}
@@ -198,9 +198,7 @@
         <li><a href="#journal">Journal</a></li>
       </ul>
       <div class="nav-actions">
-        <button class="settings-toggle" id="settingsToggle" type="button" aria-label="設定を開く" aria-expanded="false" aria-controls="settingsPanel">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/><path d="m19.4 15 .1.1a1.8 1.8 0 0 1-2.5 2.5l-.1-.1a1.8 1.8 0 0 0-3 .9v.2a1.8 1.8 0 0 1-3.6 0v-.2a1.8 1.8 0 0 0-3-.9l-.1.1a1.8 1.8 0 1 1-2.5-2.5l.1-.1a1.8 1.8 0 0 0-.9-3H3.7a1.8 1.8 0 0 1 0-3.6h.2a1.8 1.8 0 0 0 .9-3l-.1-.1a1.8 1.8 0 1 1 2.5-2.5l.1.1a1.8 1.8 0 0 0 3-.9v-.2a1.8 1.8 0 0 1 3.6 0v.2a1.8 1.8 0 0 0 3 .9l.1-.1a1.8 1.8 0 1 1 2.5 2.5l-.1.1a1.8 1.8 0 0 0 .9 3h.2a1.8 1.8 0 0 1 0 3.6h-.2a1.8 1.8 0 0 0-.9 3Z"/></svg>
-        </button>
+        <button class="settings-toggle" id="settingsToggle" type="button" aria-label="設定を開く" aria-expanded="false" aria-controls="settingsPanel">⚙️</button>
         <button class="menu-toggle" id="menuToggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="navLinks">☰</button>
       </div>
     </nav>
@@ -392,32 +390,168 @@
         button.setAttribute('aria-pressed', String(active));
       });
     }
+    const translations = {
+      '.skip-link': ['本文へスキップ', 'Skip to content'],
+      '.hero .eyebrow': ['学生 · 制作者 · 好奇心を原動力に', 'Student · Creator · Curious mind'],
+      '.hero-lead': [
+        '<strong>興味を知識に、知識を制作へ。</strong><br>AI・プログラミング・数学・国際情勢。気になったことを調べ、仕組みを理解し、自分の手で形にする過程を記録するポートフォリオです。',
+        '<strong>Turn curiosity into knowledge, and knowledge into creation.</strong><br>A portfolio documenting how I explore AI, programming, mathematics, and world affairs — learning how things work and turning ideas into something real.'
+      ],
+      '.hero-actions .button.primary': [
+        '制作・研究を見る <span aria-hidden="true">↘</span>',
+        'Explore Projects <span aria-hidden="true">↘</span>'
+      ],
+      '.hero-foot': ['PORTFOLIO / 2026 — 探究を続ける', 'PORTFOLIO / 2026 — KEEP EXPLORING'],
+      '.about-copy p': [
+        '兵庫県の高校に通う学生です。数学や世界史が好きで、物事を一つの見方だけで決めつけず、背景や仕組みを考えることに関心があります。',
+        '最近は<strong>AI・プログラミング・情報技術</strong>への興味が強くなり、HTML/CSS/JavaScriptでのWeb制作や、Google ColabとHugging Faceを使ったAIモデルの実験に取り組んでいます。',
+        'また、国際情勢や安全保障、数学・科学の歴史、SFの世界観づくりにも関心があります。文房具、とくに筆記具を集めることも好きです。'
+      ],
+      '.principle': [
+        '知るだけで終わらせず、調べる・試す・作る・振り返る。',
+        'Go beyond knowing: explore, experiment, create, and reflect.'
+      ],
+      '.fact span': [
+        'TECHNOLOGY', 'LOGIC & PROOFS', 'PAST & SOCIETY', 'IMAGINATION'
+      ],
+      '#projects .section-intro': [
+        '完成したものだけでなく、試行錯誤の途中にある制作・研究も掲載しています。進捗は変化に合わせて更新していきます。',
+        'This portfolio features works in progress as well as completed projects. I update each entry as it develops.'
+      ],
+      '.card .tag': [
+        'AI実験', 'Web開発', '探究活動', '世界観構築', '調査ノート', '工学への関心'
+      ],
+      '.card .status': [
+        '探究中', '制作中', '進行中', '構想中', '学習中', '基礎を学習中'
+      ],
+      '.card h3': [
+        '夢馬AI — 個人AI実験',
+        '個人Webサイト',
+        '人間っぽいAI、AIっぽい人間！？',
+        'Xeros — 世界観構築プロジェクト',
+        '国際情勢の調査ノート',
+        '故障診断と原因の切り分け'
+      ],
+      '.card p': [
+        'Google ColabとHugging Faceを使ってAIモデルを動かし、応答やカスタマイズの可能性を試す実験。将来的には自分のWebサイトとの連携も検討しています。',
+        'GitHub Pagesで公開しているポートフォリオ。HTML/CSS/JavaScriptを使い、情報設計からデザイン、実装、改善まで自分で進めています。',
+        'AIと人間の文章表現はどのように似ていくのか。文章の特徴や相互作用に注目し、問いを立てて調査・発表する探究活動です。',
+        '超生命体Xerosと惑星Glaevaを中心に、独自の設定や歴史を組み立てるSF世界観プロジェクト。',
+        '台湾海峡、朝鮮半島、日本の安全保障など、国際情勢に関する情報を集め、複数の視点から整理する個人学習。',
+        '身近なデジタル機器の不具合をきっかけに、ソフトウェアとハードウェアの違い、仮説の立て方、検証の進め方に関心を持ちました。'
+      ],
+      '#research .section-intro': [
+        '答えを覚えるだけでなく、「なぜそうなるのか」「別の見方はできないか」を考えるためのテーマです。',
+        'These are topics that encourage me to ask not only what the answer is, but why it is so and whether there are other ways to look at it.'
+      ],
+      '.research-main .tag': ['現在の探究テーマ', 'CURRENT RESEARCH'],
+      '.research-main h3': [
+        'AIと人間の文章表現は、互いにどのような影響を与えるのか？',
+        'How do AI and human writing styles influence one another?'
+      ],
+      '.research-main p': [
+        '生成AIの文章を人間はどう受け取り、人間の書き方はAIの普及によってどう変わるのか。文章の特徴を比較しながら、AIと人間の関係を考えています。調査・分析の進展に合わせて内容を更新します。',
+        'How do people perceive AI-generated writing, and how is human writing changing as AI becomes widespread? By comparing features of written texts, I explore the relationship between AI and people. This section will evolve as the research progresses.'
+      ],
+      '.research-side h3': ['AIと社会', '国際情勢・安全保障', '数学・科学・宇宙'],
+      '.research-side p': [
+        '生成AIの進歩、AIエージェント、教育や情報格差、社会への影響。',
+        '国際関係、紛争、地政学、日本を取り巻く安全保障環境。',
+        '数学が発展してきた歴史、証明、科学技術の新しい動向。'
+      ],
+      '#learning .section-intro': [
+        '学習した内容を、実際の制作や説明に結びつけることを大切にしています。',
+        'I value connecting what I learn to practical projects and clear explanations.'
+      ],
+      '.learning-step b': ['問いを立てる', '調べて理解する', '試して作る', '記録して改善'],
+      '.learning-step span': [
+        '何が分からないのかを明確にする',
+        '資料・歴史・仕組みを確認する',
+        '演習・実験・プログラムで確かめる',
+        '結果と課題を次の学びにつなげる'
+      ],
+      '.topic-list span': [
+        'HTML / CSS', 'JavaScript', 'Python', '生成AI・LLM',
+        '数学史・証明', '世界史', '国際情勢', '韓国語'
+      ],
+      '#journal .section-intro': [
+        '学びの途中で気づいたことや、今後深めたい問いを残す場所です。ここでは、これまでの会話や取り組みから確認できる関心を出発点として整理しています。',
+        'A space for recording discoveries along the way and questions I want to explore further. These entries reflect interests that have emerged through my learning and projects.'
+      ],
+      '.journal-item .label': ['工学', 'AI実験', '数学'],
+      '.journal-item h3': [
+        '不具合の原因を考えることも、ものづくりの入口',
+        'AIモデルを自分の環境で動かしてみる',
+        '数学を、発見の歴史から理解したい'
+      ],
+      '.journal-item p': [
+        '機器の問題をきっかけに、症状だけで判断せず、原因を仮定して切り分ける考え方に興味を持った。',
+        'モデルを実際に動かすことで、AIを使う側から、仕組みを理解して作る側へ関心が広がった。',
+        '公式を覚えるだけでなく、人類がどのような問題に出会い、考え方を発展させてきたのかを追って学びたい。'
+      ],
+      '.contact-panel h3': ["Let's keep exploring.", 'Let’s keep exploring.'],
+      '.contact-panel p': ['制作物やコードはGitHubにまとめています。', 'My projects and code are collected on GitHub.'],
+      '.footer-inner span': ['© 2026 Yuma Eto', '© 2026 Yuma Eto']
+    };
+
+    function applyTranslations(language) {
+      const english = language === 'en';
+      Object.entries(translations).forEach(([selector, values]) => {
+        document.querySelectorAll(selector).forEach((node, index) => {
+          const value = values[index];
+          if (value !== undefined) {
+            if (selector === '.hero-lead' || selector === '.hero-actions .button.primary') node.innerHTML = english ? value : values[0];
+            else node.textContent = english ? (Array.isArray(values) ? value : value) : value;
+          }
+        });
+      });
+      // Restore Japanese originals for entries whose English text is stored as the second value.
+      if (!english) {
+        document.querySelector('.hero-lead').innerHTML = translations['.hero-lead'][0];
+        document.querySelector('.hero-actions .button.primary').innerHTML = translations['.hero-actions .button.primary'][0];
+        document.querySelector('.principle').textContent = translations['.principle'][0];
+        document.querySelector('#projects .section-intro').textContent = translations['#projects .section-intro'][0];
+        document.querySelector('#research .section-intro').textContent = translations['#research .section-intro'][0];
+        document.querySelector('.research-main h3').textContent = translations['.research-main h3'][0];
+        document.querySelector('.research-main p').textContent = translations['.research-main p'][0];
+        document.querySelector('#learning .section-intro').textContent = translations['#learning .section-intro'][0];
+        document.querySelector('#journal .section-intro').textContent = translations['#journal .section-intro'][0];
+      }
+    }
+
     function setLanguage(language) {
-      root.lang = language === 'ja' ? 'ja' : 'en';
+      const english = language === 'en';
+      root.lang = english ? 'en' : 'ja';
+      root.dataset.language = language;
       try { localStorage.setItem('language', language); } catch (_) {}
       document.querySelectorAll('[data-language-choice]').forEach(button => {
         const active = button.dataset.languageChoice === language;
         button.classList.toggle('active', active);
         button.setAttribute('aria-pressed', String(active));
       });
-      const english = language === 'en';
       const labels = english
         ? ['About','Projects','Research','Learning','Journal']
         : ['プロフィール','制作','研究・関心','学習','ジャーナル'];
       navLinks.querySelectorAll('a').forEach((link,index) => { link.textContent = labels[index]; });
-      const headings = english
-        ? ['About','Projects','Research & Interests','Learning','Journal','Contact']
-        : ['About','Projects','Research & Interests','Learning','Journal','Contact'];
-      document.querySelectorAll('main > section .section-heading h2').forEach((heading,index) => { heading.textContent = headings[index] || heading.textContent; });
-      const eyebrow = document.querySelector('.hero .eyebrow');
-      eyebrow.textContent = english ? 'Student · Creator · Curious mind' : '学生 · 制作者 · 好奇心を原動力に';
-      const lead = document.querySelector('.hero-lead');
-      lead.innerHTML = english
-        ? '<strong>Turn curiosity into knowledge, and knowledge into creation.</strong><br>A portfolio documenting how I explore AI, programming, mathematics, and world affairs — learning how things work and turning ideas into something real.'
-        : '<strong>興味を知識に、知識を制作へ。</strong><br>AI・プログラミング・数学・国際情勢。気になったことを調べ、仕組みを理解し、自分の手で形にする過程を記録するポートフォリオです。';
-      document.querySelector('.hero-actions .button.primary').innerHTML = english ? 'Explore Projects <span aria-hidden="true">↘</span>' : '制作・研究を見る <span aria-hidden="true">↘</span>';
+      applyTranslations(language);
+      document.querySelector('.skip-link').textContent = english ? 'Skip to content' : '本文へスキップ';
+      document.querySelector('nav').setAttribute('aria-label', english ? 'Main navigation' : 'メインナビゲーション');
+      settingsToggle.setAttribute('aria-label', english ? 'Open settings' : '設定を開く');
+      settingsClose.setAttribute('aria-label', english ? 'Close settings' : '設定を閉じる');
+      menuButton.setAttribute('aria-label', english ? 'Open menu' : 'メニューを開く');
+      document.querySelector('.settings-kicker').textContent = english ? 'PREFERENCES' : '設定';
+      document.getElementById('settingsTitle').textContent = english ? 'Settings' : '設定';
+      document.getElementById('themeLabel').textContent = english ? 'Theme' : 'テーマ';
+      document.getElementById('languageLabel').textContent = english ? 'Language' : '言語';
+      document.querySelectorAll('.setting-options')[0].setAttribute('aria-label', english ? 'Theme' : 'テーマ');
+      document.querySelectorAll('.setting-options')[1].setAttribute('aria-label', english ? 'Language' : '言語');
+      document.querySelector('.settings-footer').innerHTML = english ? 'YUMA ETO <span>·</span> SETTINGS' : 'YUMA ETO <span>·</span> 設定';
       document.querySelector('.hero-actions .button.secondary').innerHTML = 'GitHub <span aria-hidden="true">↗</span>';
-      document.documentElement.dataset.language = language;
+      document.querySelector('.contact-panel .button').textContent = english ? 'GitHub Profile ↗' : 'GitHub Profile ↗';
+      document.querySelector('meta[name="description"]').setAttribute('content', english
+        ? 'Turn curiosity into knowledge and knowledge into creation. A portfolio exploring AI, programming, mathematics, and world affairs.'
+        : '興味を知識に、知識を制作へ。AI・プログラミング・数学・国際情勢について学び、考え、形にするポートフォリオ。');
+      document.title = english ? 'Yuma Eto — Curiosity to Creation' : 'Yuma Eto — Curiosity to Creation';
     }
     function openSettings() {
       settingsBackdrop.hidden = false;
