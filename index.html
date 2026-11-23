@@ -490,7 +490,6 @@
         '公式を覚えるだけでなく、人類がどのような問題に出会い、考え方を発展させてきたのかを追って学びたい。'
       ],
       '.contact-panel h3': ['探究を続けよう。'],
-      '.contact-panel h3': ['探究を続けよう。'],
       '.contact-panel p': ['制作物やコードはGitHubにまとめています。', 'My projects and code are collected on GitHub.'],
       '.footer-inner span': ['© 2026 Yuma Eto', '© 2026 Yuma Eto']
     };
@@ -620,6 +619,8 @@
       applyTranslations(language);
       document.querySelector('.skip-link').textContent = english ? 'Skip to content' : '本文へスキップ';
       document.querySelector('nav').setAttribute('aria-label', english ? 'Main navigation' : 'メインナビゲーション');
+      document.querySelector('.brand').setAttribute('aria-label', english ? 'Home' : 'ホーム');
+      document.querySelector('.topic-list').setAttribute('aria-label', english ? 'Learning topics' : '学習テーマ');
       settingsToggle.setAttribute('aria-label', english ? 'Open settings' : '設定を開く');
       settingsClose.setAttribute('aria-label', english ? 'Close settings' : '設定を閉じる');
       menuButton.setAttribute('aria-label', english ? 'Open menu' : 'メニューを開く');
