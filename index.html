@@ -494,31 +494,113 @@
       '.footer-inner span': ['© 2026 Yuma Eto', '© 2026 Yuma Eto']
     };
 
+    const englishTranslations = {
+      '.skip-link': ['Skip to content'],
+      '.hero .eyebrow': ['Student · Creator · Curious mind'],
+      '.hero-lead': ['<strong>Turn curiosity into knowledge, and knowledge into creation.</strong><br>A portfolio documenting how I explore AI, programming, mathematics, and world affairs — learning how things work and turning ideas into something real.'],
+      '.hero-actions .button.primary': ['Explore Projects <span aria-hidden="true">↘</span>'],
+      '.hero-foot': ['PORTFOLIO / 2026 — KEEP EXPLORING'],
+      '.about-copy p': [
+        'I am a high school student in Hyogo, Japan. I enjoy mathematics and world history, and I like exploring the backgrounds and systems behind things rather than looking at them from just one perspective.',
+        'Recently, I have become especially interested in <strong>AI, programming, and information technology</strong>. I build websites with HTML, CSS, and JavaScript, and experiment with AI models using Google Colab and Hugging Face.',
+        'I am also interested in international affairs, security, the history of mathematics and science, and science-fiction worldbuilding. I enjoy collecting stationery, especially writing instruments.'
+      ],
+      '.principle': ['Go beyond knowing: explore, experiment, create, and reflect.'],
+      '#projects .section-intro': ['This portfolio features works in progress as well as completed projects. I update each entry as it develops.'],
+      '.card .tag': ['AI EXPERIMENT', 'WEB DEVELOPMENT', 'RESEARCH', 'WORLDBUILDING', 'RESEARCH NOTES', 'ENGINEERING INTEREST'],
+      '.card .status': ['EXPLORING', 'IN PROGRESS', 'IN PROGRESS', 'ONGOING IDEA', 'LEARNING', 'LEARNING THE BASICS'],
+      '.card h3': [
+        'Yuma AI — Personal AI Experiment',
+        'Personal Website',
+        'Human-like AI, AI-like Humans!?',
+        'Xeros — Worldbuilding Universe',
+        'Geopolitics Research Notes',
+        'Troubleshooting and Root Cause Analysis'
+      ],
+      '.card p': [
+        'An experiment using Google Colab and Hugging Face to run AI models and explore their responses and customization. I am also considering connecting the model to my own website in the future.',
+        'A portfolio published with GitHub Pages. I work on its information architecture, design, implementation, and improvements using HTML, CSS, and JavaScript.',
+        'How are AI-generated and human-written texts becoming similar? This research project explores writing characteristics and interaction through investigation and presentation.',
+        'A science-fiction universe built around the super-organism Xeros and the planet Glaeva, with original settings and history.',
+        'Independent study of international affairs, including the Taiwan Strait, the Korean Peninsula, and Japan’s security environment, organized from multiple perspectives.',
+        'A malfunction in a familiar digital device sparked my interest in the differences between software and hardware, forming hypotheses, and testing possible causes.'
+      ],
+      '#research .section-intro': ['Topics that encourage me to ask not only what the answer is, but why it is so and whether there are other ways to look at it.'],
+      '.research-main .tag': ['CURRENT RESEARCH'],
+      '.research-main h3': ['How do AI and human writing styles influence one another?'],
+      '.research-main p': ['How do people perceive AI-generated writing, and how is human writing changing as AI becomes widespread? By comparing features of written texts, I explore the relationship between AI and people. This section will evolve as the research progresses.'],
+      '.research-side h3': ['AI and Society', 'International Affairs and Security', 'Mathematics, Science, and Space'],
+      '.research-side p': [
+        'Advances in generative AI, AI agents, education, information inequality, and their effects on society.',
+        'International relations, conflicts, geopolitics, and the security environment surrounding Japan.',
+        'The history of mathematics, mathematical proofs, and emerging developments in science and technology.'
+      ],
+      '#learning .section-intro': ['I value connecting what I learn to practical projects and clear explanations.'],
+      '.learning-step b': ['Ask a Question', 'Research and Understand', 'Experiment and Build', 'Reflect and Improve'],
+      '.learning-step span': [
+        'Clarify what I want to understand',
+        'Explore sources, history, and underlying systems',
+        'Test ideas through exercises, experiments, and code',
+        'Use results and challenges to guide the next step'
+      ],
+      '#journal .section-intro': ['A space for recording discoveries along the way and questions I want to explore further. These entries reflect interests that have emerged through my learning and projects.'],
+      '.journal-item .label': ['ENGINEERING', 'AI EXPERIMENT', 'MATHEMATICS'],
+      '.journal-item h3': [
+        'Understanding failures can be the starting point of engineering',
+        'Running an AI model in my own environment',
+        'Understanding mathematics through the history of discovery'
+      ],
+      '.journal-item p': [
+        'A device issue sparked my interest in diagnosing problems by forming hypotheses and isolating possible causes instead of judging by symptoms alone.',
+        'Running a model myself expanded my interest from using AI to understanding how it works and learning how to build with it.',
+        'Rather than only memorizing formulas, I want to explore the problems people encountered and how mathematical ideas developed over time.'
+      ],
+      '.contact-panel p': ['My projects and code are collected on GitHub.']
+    };
+
     function applyTranslations(language) {
       const english = language === 'en';
-      Object.entries(translations).forEach(([selector, values]) => {
+      Object.entries(translations).forEach(([selector, japaneseValues]) => {
+        const values = english ? (englishTranslations[selector] || japaneseValues) : japaneseValues;
         document.querySelectorAll(selector).forEach((node, index) => {
           const value = values[index];
-          if (value !== undefined) {
-            if (selector === '.hero-lead' || selector === '.hero-actions .button.primary') node.innerHTML = english ? value : values[0];
-            else node.textContent = english ? (Array.isArray(values) ? value : value) : value;
+          if (value === undefined) return;
+          if (selector === '.hero-lead' || selector === '.hero-actions .button.primary' || selector === '.about-copy p') {
+            node.innerHTML = value;
+          } else {
+            node.textContent = value;
           }
         });
       });
-      // Restore Japanese originals for entries whose English text is stored as the second value.
-      if (!english) {
-        document.querySelector('.hero-lead').innerHTML = translations['.hero-lead'][0];
-        document.querySelector('.hero-actions .button.primary').innerHTML = translations['.hero-actions .button.primary'][0];
-        document.querySelector('.principle').textContent = translations['.principle'][0];
-        document.querySelector('#projects .section-intro').textContent = translations['#projects .section-intro'][0];
-        document.querySelector('#research .section-intro').textContent = translations['#research .section-intro'][0];
-        document.querySelector('.research-main h3').textContent = translations['.research-main h3'][0];
-        document.querySelector('.research-main p').textContent = translations['.research-main p'][0];
-        document.querySelector('#learning .section-intro').textContent = translations['#learning .section-intro'][0];
-        document.querySelector('#journal .section-intro').textContent = translations['#journal .section-intro'][0];
-      }
+      // Content that is intentionally identical in both languages remains unchanged.
+      document.querySelectorAll('.fact span').forEach((node, index) => {
+        node.textContent = ['TECHNOLOGY', 'LOGIC & PROOFS', 'PAST & SOCIETY', 'IMAGINATION'][index];
+      });
+      document.querySelectorAll('.topic-list span').forEach((node, index) => {
+        node.textContent = ['HTML / CSS', 'JavaScript', 'Python', 'Generative AI / LLMs', 'History of Mathematics / Proofs', 'World History', 'International Affairs', 'Korean'][index];
+      });
+      document.querySelectorAll('.card .card-meta').forEach((meta, index) => {
+        const english = [
+          ['Python', 'Hugging Face', 'LLM'],
+          ['HTML', 'CSS', 'JavaScript', 'GitHub Pages'],
+          ['Generative AI', 'Writing', 'Research'],
+          ['Sci-Fi', 'Writing', 'Worldbuilding'],
+          ['Geopolitics', 'History', 'Security'],
+          ['Troubleshooting', 'Systems', 'Engineering']
+        ];
+        const japanese = [
+          ['Python', 'Hugging Face', 'LLM'],
+          ['HTML', 'CSS', 'JavaScript', 'GitHub Pages'],
+          ['生成AI', '文章表現', '探究'],
+          ['SF', '執筆', '世界観構築'],
+          ['地政学', '歴史', '安全保障'],
+          ['原因究明', 'システム', '工学']
+        ];
+        meta.querySelectorAll('span').forEach((span, i) => {
+          span.textContent = (language === 'en' ? english : japanese)[index][i] || span.textContent;
+        });
+      });
     }
-
     function setLanguage(language) {
       const english = language === 'en';
       root.lang = english ? 'en' : 'ja';
