@@ -403,8 +403,20 @@
       const english = language === 'en';
       const labels = english
         ? ['About','Projects','Research','Learning','Journal']
-        : ['About','Projects','Research','Learning','Journal'];
+        : ['プロフィール','制作','研究・関心','学習','ジャーナル'];
       navLinks.querySelectorAll('a').forEach((link,index) => { link.textContent = labels[index]; });
+      const headings = english
+        ? ['About','Projects','Research & Interests','Learning','Journal','Contact']
+        : ['About','Projects','Research & Interests','Learning','Journal','Contact'];
+      document.querySelectorAll('main > section .section-heading h2').forEach((heading,index) => { heading.textContent = headings[index] || heading.textContent; });
+      const eyebrow = document.querySelector('.hero .eyebrow');
+      eyebrow.textContent = english ? 'Student · Creator · Curious mind' : '学生 · 制作者 · 好奇心を原動力に';
+      const lead = document.querySelector('.hero-lead');
+      lead.innerHTML = english
+        ? '<strong>Turn curiosity into knowledge, and knowledge into creation.</strong><br>A portfolio documenting how I explore AI, programming, mathematics, and world affairs — learning how things work and turning ideas into something real.'
+        : '<strong>興味を知識に、知識を制作へ。</strong><br>AI・プログラミング・数学・国際情勢。気になったことを調べ、仕組みを理解し、自分の手で形にする過程を記録するポートフォリオです。';
+      document.querySelector('.hero-actions .button.primary').innerHTML = english ? 'Explore Projects <span aria-hidden="true">↘</span>' : '制作・研究を見る <span aria-hidden="true">↘</span>';
+      document.querySelector('.hero-actions .button.secondary').innerHTML = 'GitHub <span aria-hidden="true">↗</span>';
       document.documentElement.dataset.language = language;
     }
     function openSettings() {
