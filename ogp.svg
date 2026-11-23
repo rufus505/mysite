@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+<title id="title">Yuma Eto — Curiosity to Creation</title>
+<desc id="desc">Personal portfolio about AI, technology, mathematics, learning, research and creation.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#080e1b"/><stop offset=".58" stop-color="#0b1730"/><stop offset="1" stop-color="#102b50"/></linearGradient>
+  <radialGradient id="glow"><stop stop-color="#3679d8" stop-opacity=".32"/><stop offset="1" stop-color="#3679d8" stop-opacity="0"/></radialGradient>
+  <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M60 0H0V60" fill="none" stroke="#9fc5ff" stroke-opacity=".08"/></pattern>
+  <linearGradient id="blue"><stop stop-color="#75b5ff"/><stop offset="1" stop-color="#d5e8ff"/></linearGradient>
+</defs>
+<rect width="1200" height="630" fill="url(#bg)"/>
+<rect width="1200" height="630" fill="url(#grid)"/>
+<circle cx="925" cy="285" r="380" fill="url(#glow)"/>
+<g fill="none" stroke="#8dbdff" stroke-opacity=".22">
+  <circle cx="930" cy="300" r="260" stroke-width="2"/><circle cx="930" cy="300" r="190" stroke-width="2"/>
+  <circle cx="930" cy="300" r="120" stroke-width="2"/><path d="M690 535 1145 80M760 590 1190 160" />
+</g>
+<rect x="94" y="104" width="8" height="62" rx="4" fill="#6baaff"/>
+<text x="128" y="172" fill="#f5f8ff" font-family="Arial,Helvetica,sans-serif" font-size="86" font-weight="700" letter-spacing="-3">Yuma Eto.</text>
+<text x="132" y="248" fill="url(#blue)" font-family="Arial,Helvetica,sans-serif" font-size="29" letter-spacing="5">CURIOSITY TO CREATION</text>
+<path d="M132 292H505" stroke="#75aaff" stroke-opacity=".65" stroke-width="2"/>
+<text x="132" y="356" fill="#e0e9f8" font-family="Arial,Helvetica,sans-serif" font-size="20" letter-spacing="2">AI  /  TECHNOLOGY  /  MATHEMATICS</text>
+<text x="132" y="397" fill="#e0e9f8" font-family="Arial,Helvetica,sans-serif" font-size="20" letter-spacing="2">LEARNING  /  RESEARCH  /  CREATION</text>
+<text x="132" y="548" fill="#91a7c8" font-family="Arial,Helvetica,sans-serif" font-size="16" letter-spacing="3">PERSONAL PORTFOLIO  ·  2026</text>
+<text x="1050" y="104" fill="#dceaff" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="700">YE.</text>
+</svg>
