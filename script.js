@@ -274,19 +274,56 @@ document.addEventListener('DOMContentLoaded', () => {
           : '興味を知識に、知識を制作へ。AI・プログラミング・数学・国際情勢について学び、考え、形にするポートフォリオ。');
         document.title = english ? 'Yuma Eto — Curiosity to Creation' : 'Yuma Eto — Curiosity to Creation';
       }
+      // Keep keyboard focus inside the settings dialog and make the page behind it inert.
+      let backgroundInertStates = new Map();
+      const focusableSelector = [
+        'a[href]', 'area[href]', 'button:not([disabled])',
+        'input:not([disabled])', 'select:not([disabled])',
+        'textarea:not([disabled])', '[contenteditable="true"]',
+        '[tabindex]:not([tabindex="-1"])'
+      ].join(',');
+
+      function setBackgroundInert(inert) {
+        [...document.body.children].forEach(element => {
+          if (element === settingsPanel || element === settingsBackdrop) return;
+          if (inert) {
+            if (!backgroundInertStates.has(element)) {
+              backgroundInertStates.set(element, element.inert);
+            }
+            element.inert = true;
+          } else if (backgroundInertStates.has(element)) {
+            element.inert = backgroundInertStates.get(element);
+            backgroundInertStates.delete(element);
+          }
+        });
+      }
+
+      function getDialogFocusableElements() {
+        return [...settingsPanel.querySelectorAll(focusableSelector)].filter(element =>
+          !element.hidden &&
+          element.getAttribute('aria-hidden') !== 'true' &&
+          element.getClientRects().length > 0
+        );
+      }
+
       function openSettings() {
         settingsBackdrop.hidden = false;
-        requestAnimationFrame(() => settingsPanel.classList.add('open'));
-        settingsPanel.setAttribute('aria-hidden','false');
-        settingsToggle.setAttribute('aria-expanded','true');
+        setBackgroundInert(true);
+        settingsPanel.setAttribute('aria-hidden', 'false');
+        settingsToggle.setAttribute('aria-expanded', 'true');
         document.body.classList.add('settings-open');
-        settingsClose.focus();
+        requestAnimationFrame(() => {
+          settingsPanel.classList.add('open');
+          settingsClose.focus();
+        });
       }
+
       function closeSettings() {
         settingsPanel.classList.remove('open');
-        settingsPanel.setAttribute('aria-hidden','true');
-        settingsToggle.setAttribute('aria-expanded','false');
+        settingsPanel.setAttribute('aria-hidden', 'true');
+        settingsToggle.setAttribute('aria-expanded', 'false');
         document.body.classList.remove('settings-open');
+        setBackgroundInert(false);
         window.setTimeout(() => { settingsBackdrop.hidden = true; }, 380);
         settingsToggle.focus();
       }
@@ -294,7 +331,37 @@ document.addEventListener('DOMContentLoaded', () => {
       settingsClose.addEventListener('click', closeSettings);
       settingsBackdrop.addEventListener('click', closeSettings);
       document.addEventListener('keydown', event => {
-        if (event.key === 'Escape' && settingsPanel.classList.contains('open')) closeSettings();
+        if (!settingsPanel.classList.contains('open')) return;
+
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          closeSettings();
+          return;
+        }
+
+        if (event.key !== 'Tab') return;
+
+        const focusable = getDialogFocusableElements();
+        if (focusable.length === 0) {
+          event.preventDefault();
+          settingsPanel.focus();
+          return;
+        }
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        const active = document.activeElement;
+
+        if (!settingsPanel.contains(active)) {
+          event.preventDefault();
+          (event.shiftKey ? last : first).focus();
+        } else if (event.shiftKey && (active === first || active === settingsPanel)) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && active === last) {
+          event.preventDefault();
+          first.focus();
+        }
       });
       document.querySelectorAll('[data-theme-choice]').forEach(button => button.addEventListener('click', () => setTheme(button.dataset.themeChoice)));
       document.querySelectorAll('[data-language-choice]').forEach(button => button.addEventListener('click', () => setLanguage(button.dataset.languageChoice)));
