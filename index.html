@@ -489,7 +489,8 @@
         'モデルを実際に動かすことで、AIを使う側から、仕組みを理解して作る側へ関心が広がった。',
         '公式を覚えるだけでなく、人類がどのような問題に出会い、考え方を発展させてきたのかを追って学びたい。'
       ],
-      '.contact-panel h3': ["Let's keep exploring.", 'Let’s keep exploring.'],
+      '.contact-panel h3': ['探究を続けよう。'],
+      '.contact-panel h3': ['探究を続けよう。'],
       '.contact-panel p': ['制作物やコードはGitHubにまとめています。', 'My projects and code are collected on GitHub.'],
       '.footer-inner span': ['© 2026 Yuma Eto', '© 2026 Yuma Eto']
     };
@@ -555,6 +556,7 @@
         'Running a model myself expanded my interest from using AI to understanding how it works and learning how to build with it.',
         'Rather than only memorizing formulas, I want to explore the problems people encountered and how mathematical ideas developed over time.'
       ],
+      '.contact-panel h3': ['Let’s keep exploring.'],
       '.contact-panel p': ['My projects and code are collected on GitHub.']
     };
 
@@ -629,7 +631,7 @@
       document.querySelectorAll('.setting-options')[1].setAttribute('aria-label', english ? 'Language' : '言語');
       document.querySelector('.settings-footer').innerHTML = english ? 'YUMA ETO <span>·</span> SETTINGS' : 'YUMA ETO <span>·</span> 設定';
       document.querySelector('.hero-actions .button.secondary').innerHTML = 'GitHub <span aria-hidden="true">↗</span>';
-      document.querySelector('.contact-panel .button').textContent = english ? 'GitHub Profile ↗' : 'GitHub Profile ↗';
+      document.querySelector('.contact-panel .button').textContent = english ? 'GitHub Profile ↗' : 'GitHubプロフィール ↗';
       document.querySelector('meta[name="description"]').setAttribute('content', english
         ? 'Turn curiosity into knowledge and knowledge into creation. A portfolio exploring AI, programming, mathematics, and world affairs.'
         : '興味を知識に、知識を制作へ。AI・プログラミング・数学・国際情勢について学び、考え、形にするポートフォリオ。');
@@ -667,14 +669,14 @@
     menuButton.addEventListener('click', () => {
       const open = menuButton.getAttribute('aria-expanded') !== 'true';
       menuButton.setAttribute('aria-expanded', String(open));
-      menuButton.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+      menuButton.setAttribute('aria-label', root.lang === 'en' ? (open ? 'Close menu' : 'Open menu') : (open ? 'メニューを閉じる' : 'メニューを開く'));
       menuButton.textContent = open ? '×' : '☰';
       navLinks.classList.toggle('open', open);
     });
     navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
       navLinks.classList.remove('open');
       menuButton.setAttribute('aria-expanded', 'false');
-      menuButton.setAttribute('aria-label', 'メニューを開く');
+      menuButton.setAttribute('aria-label', root.lang === 'en' ? 'Open menu' : 'メニューを開く');
       menuButton.textContent = '☰';
     }));
 
