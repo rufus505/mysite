@@ -392,7 +392,7 @@
     }
     const translations = {
       '.skip-link': ['本文へスキップ', 'Skip to content'],
-      '.hero .eyebrow': ['学生 · 制作者 · 好奇心を原動力に', 'Student · Creator · Curious mind'],
+      '.hero .eyebrow': ['Student · Creator · Curious mind'],
       '.hero-lead': [
         '<strong>興味を知識に、知識を制作へ。</strong><br>AI・プログラミング・数学・国際情勢。気になったことを調べ、仕組みを理解し、自分の手で形にする過程を記録するポートフォリオです。',
         '<strong>Turn curiosity into knowledge, and knowledge into creation.</strong><br>A portfolio documenting how I explore AI, programming, mathematics, and world affairs — learning how things work and turning ideas into something real.'
@@ -401,7 +401,7 @@
         '制作・研究を見る <span aria-hidden="true">↘</span>',
         'Explore Projects <span aria-hidden="true">↘</span>'
       ],
-      '.hero-foot': ['PORTFOLIO / 2026 — 探究を続ける', 'PORTFOLIO / 2026 — KEEP EXPLORING'],
+      '.hero-foot': ['PORTFOLIO / 2026 — KEEP EXPLORING'],
       '.about-copy p': [
         '兵庫県の高校に通う学生です。数学や世界史が好きで、物事を一つの見方だけで決めつけず、背景や仕組みを考えることに関心があります。',
         '最近は<strong>AI・プログラミング・情報技術</strong>への興味が強くなり、HTML/CSS/JavaScriptでのWeb制作や、Google ColabとHugging Faceを使ったAIモデルの実験に取り組んでいます。',
@@ -419,17 +419,17 @@
         'This portfolio features works in progress as well as completed projects. I update each entry as it develops.'
       ],
       '.card .tag': [
-        'AI実験', 'Web開発', '探究活動', '世界観構築', '調査ノート', '工学への関心'
+        'AI EXPERIMENT', 'WEB DEVELOPMENT', 'RESEARCH', 'WORLD BUILDING', 'RESEARCH NOTES', 'ENGINEERING INTEREST'
       ],
       '.card .status': [
-        '探究中', '制作中', '進行中', '構想中', '学習中', '基礎を学習中'
+        'EXPLORING', 'IN PROGRESS', 'IN PROGRESS', 'ONGOING IDEA', 'LEARNING', 'LEARNING THE BASICS'
       ],
       '.card h3': [
-        '夢馬AI — 個人AI実験',
-        '個人Webサイト',
+        'Yuma AI — Personal AI Experiment',
+        'Personal Website',
         '人間っぽいAI、AIっぽい人間！？',
-        'Xeros — 世界観構築プロジェクト',
-        '国際情勢の調査ノート',
+        'Xeros — Worldbuilding Universe',
+        'Geopolitics Research Notes',
         '故障診断と原因の切り分け'
       ],
       '.card p': [
@@ -444,7 +444,7 @@
         '答えを覚えるだけでなく、「なぜそうなるのか」「別の見方はできないか」を考えるためのテーマです。',
         'These are topics that encourage me to ask not only what the answer is, but why it is so and whether there are other ways to look at it.'
       ],
-      '.research-main .tag': ['現在の探究テーマ', 'CURRENT RESEARCH'],
+      '.research-main .tag': ['CURRENT RESEARCH'],
       '.research-main h3': [
         'AIと人間の文章表現は、互いにどのような影響を与えるのか？',
         'How do AI and human writing styles influence one another?'
@@ -478,7 +478,7 @@
         '学びの途中で気づいたことや、今後深めたい問いを残す場所です。ここでは、これまでの会話や取り組みから確認できる関心を出発点として整理しています。',
         'A space for recording discoveries along the way and questions I want to explore further. These entries reflect interests that have emerged through my learning and projects.'
       ],
-      '.journal-item .label': ['工学', 'AI実験', '数学'],
+      '.journal-item .label': ['ENGINEERING', 'AI EXPERIMENT', 'MATHEMATICS'],
       '.journal-item h3': [
         '不具合の原因を考えることも、ものづくりの入口',
         'AIモデルを自分の環境で動かしてみる',
@@ -489,7 +489,7 @@
         'モデルを実際に動かすことで、AIを使う側から、仕組みを理解して作る側へ関心が広がった。',
         '公式を覚えるだけでなく、人類がどのような問題に出会い、考え方を発展させてきたのかを追って学びたい。'
       ],
-      '.contact-panel h3': ['探究を続けよう。'],
+      '.contact-panel h3': ["Let's keep exploring."],
       '.contact-panel p': ['制作物やコードはGitHubにまとめています。', 'My projects and code are collected on GitHub.'],
       '.footer-inner span': ['© 2026 Yuma Eto', '© 2026 Yuma Eto']
     };
@@ -578,7 +578,9 @@
         node.textContent = ['TECHNOLOGY', 'LOGIC & PROOFS', 'PAST & SOCIETY', 'IMAGINATION'][index];
       });
       document.querySelectorAll('.topic-list span').forEach((node, index) => {
-        node.textContent = ['HTML / CSS', 'JavaScript', 'Python', 'Generative AI / LLMs', 'History of Mathematics / Proofs', 'World History', 'International Affairs', 'Korean'][index];
+        const japanese = ['HTML / CSS', 'JavaScript', 'Python', '生成AI・LLM', '数学史・証明', '世界史', '国際情勢', '韓国語'];
+        const english = ['HTML / CSS', 'JavaScript', 'Python', 'Generative AI / LLMs', 'History of Mathematics / Proofs', 'World History', 'International Affairs', 'Korean'];
+        node.textContent = (language === 'en' ? english : japanese)[index];
       });
       document.querySelectorAll('.card .card-meta').forEach((meta, index) => {
         const english = [
@@ -592,10 +594,10 @@
         const japanese = [
           ['Python', 'Hugging Face', 'LLM'],
           ['HTML', 'CSS', 'JavaScript', 'GitHub Pages'],
-          ['生成AI', '文章表現', '探究'],
-          ['SF', '執筆', '世界観構築'],
-          ['地政学', '歴史', '安全保障'],
-          ['原因究明', 'システム', '工学']
+          ['Generative AI', 'Writing', 'Research'],
+          ['Sci-Fi', 'Writing', 'Worldbuilding'],
+          ['Geopolitics', 'History', 'Security'],
+          ['Troubleshooting', 'Systems', 'Engineering']
         ];
         meta.querySelectorAll('span').forEach((span, i) => {
           span.textContent = (language === 'en' ? english : japanese)[index][i] || span.textContent;
@@ -624,15 +626,15 @@
       settingsToggle.setAttribute('aria-label', english ? 'Open settings' : '設定を開く');
       settingsClose.setAttribute('aria-label', english ? 'Close settings' : '設定を閉じる');
       menuButton.setAttribute('aria-label', english ? 'Open menu' : 'メニューを開く');
-      document.querySelector('.settings-kicker').textContent = english ? 'PREFERENCES' : '設定';
-      document.getElementById('settingsTitle').textContent = english ? 'Settings' : '設定';
-      document.getElementById('themeLabel').textContent = english ? 'Theme' : 'テーマ';
-      document.getElementById('languageLabel').textContent = english ? 'Language' : '言語';
-      document.querySelectorAll('.setting-options')[0].setAttribute('aria-label', english ? 'Theme' : 'テーマ');
-      document.querySelectorAll('.setting-options')[1].setAttribute('aria-label', english ? 'Language' : '言語');
-      document.querySelector('.settings-footer').innerHTML = english ? 'YUMA ETO <span>·</span> SETTINGS' : 'YUMA ETO <span>·</span> 設定';
+      document.querySelector('.settings-kicker').textContent = 'PREFERENCES';
+      document.getElementById('settingsTitle').textContent = 'Settings';
+      document.getElementById('themeLabel').textContent = 'Theme';
+      document.getElementById('languageLabel').textContent = 'Language';
+      document.querySelectorAll('.setting-options')[0].setAttribute('aria-label', 'Theme');
+      document.querySelectorAll('.setting-options')[1].setAttribute('aria-label', 'Language');
+      document.querySelector('.settings-footer').innerHTML = 'YUMA ETO <span>·</span> SETTINGS';
       document.querySelector('.hero-actions .button.secondary').innerHTML = 'GitHub <span aria-hidden="true">↗</span>';
-      document.querySelector('.contact-panel .button').textContent = english ? 'GitHub Profile ↗' : 'GitHubプロフィール ↗';
+      document.querySelector('.contact-panel .button').textContent = 'GitHub Profile ↗';
       document.querySelector('meta[name="description"]').setAttribute('content', english
         ? 'Turn curiosity into knowledge and knowledge into creation. A portfolio exploring AI, programming, mathematics, and world affairs.'
         : '興味を知識に、知識を制作へ。AI・プログラミング・数学・国際情勢について学び、考え、形にするポートフォリオ。');
