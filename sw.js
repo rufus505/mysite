@@ -36,16 +36,18 @@ self.addEventListener('fetch', event => {
   }
 
   // Return static assets immediately from cache and refresh them in the background.
-  if (/\\.(?:css|js|png|jpe?g|webp|svg|ico|woff2?)$/i.test(url.pathname)) {
-    event.respondWith((async () => {
-      const cache = await caches.open(CACHE_NAME);
-      const cached = await cache.match(request);
-      const refresh = fetch(request).then(response => {
-        if (response.ok && response.type === 'basic') cache.put(request, response.clone());
-        return response;
-      }).catch(() => cached);
-      event.waitUntil(refresh.then(() => undefined).catch(() => undefined));
-      return cached || await refresh;
-    })());
+  if (/\.(?:css|js|png|jpe?g|webp|svg|ico|woff2?)$/i.test(url.pathname)) {
+    const cachePromise = caches.open(CACHE_NAME);
+    const cachedPromise = cachePromise.then(cache => cache.match(request));
+    const refreshPromise = cachePromise.then(cache => fetch(request).then(response => {
+      if (response.ok && response.type === 'basic') {
+        return cache.put(request, response.clone()).then(() => response);
+      }
+      return response;
+    })).catch(() => null);
+
+    // Extend the service-worker event while the cached asset is refreshed.
+    event.waitUntil(refreshPromise.then(() => undefined));
+    event.respondWith(cachedPromise.then(cached => cached || refreshPromise).then(response => response || Response.error()));
   }
 });
