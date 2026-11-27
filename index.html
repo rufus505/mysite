@@ -35,8 +35,10 @@
   
   <link rel="stylesheet" href="/mysite/style.css">
   <script src="/mysite/script.js"></script>
+  <script src="/mysite/enhancements.js" defer></script>
 </head>
 <body>
+  <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
   <a class="skip-link" href="#main">本文へスキップ</a>
   <header class="topbar" id="topbar">
     <nav class="container nav-wrap" aria-label="メインナビゲーション">
@@ -121,38 +123,56 @@
       <div class="container">
         <div class="section-heading reveal"><span class="section-index">02</span><h2>Projects</h2><div class="heading-line"></div></div>
         <p class="section-intro reveal">完成したものだけでなく、試行錯誤の途中にある制作・研究も掲載しています。進捗は変化に合わせて更新していきます。</p>
+        <div class="project-tools reveal" aria-label="制作・研究の検索">
+          <label class="project-search">
+            <span>SEARCH</span>
+            <input id="projectSearch" type="search" placeholder="タイトル・キーワードで検索" autocomplete="off">
+          </label>
+          <label class="project-filter">
+            <span>CATEGORY</span>
+            <select id="projectCategory">
+              <option value="all">すべて表示</option>
+              <option value="ai">AI・テクノロジー</option>
+              <option value="web">Web制作</option>
+              <option value="research">研究・探究</option>
+              <option value="creative">創作</option>
+              <option value="learning">学習・技術</option>
+            </select>
+          </label>
+          <p class="project-count" id="projectCount" aria-live="polite">6 PROJECTS</p>
+        </div>
         <div class="cards">
-          <article class="card reveal">
+          <article class="card reveal" data-category="ai">
             <div class="card-top"><span class="tag">AI EXPERIMENT</span><span class="status">EXPLORING</span></div>
             <h3>夢馬AI — Personal AI Experiment</h3>
             <p>Google ColabとHugging Faceを使ってAIモデルを動かし、応答やカスタマイズの可能性を試す実験。将来的には自分のWebサイトとの連携も検討しています。</p>
             <div class="card-meta"><span>Python</span><span>Hugging Face</span><span>LLM</span></div>
           </article>
-          <article class="card reveal">
+          <article class="card reveal" data-category="web">
             <div class="card-top"><span class="tag">WEB DEVELOPMENT</span><span class="status">IN PROGRESS</span></div>
             <h3>Personal Website</h3>
             <p>GitHub Pagesで公開しているポートフォリオ。HTML/CSS/JavaScriptを使い、情報設計からデザイン、実装、改善まで自分で進めています。</p>
             <div class="card-meta"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>GitHub Pages</span></div>
           </article>
-          <article class="card reveal">
+          <article class="card reveal" data-category="research">
             <div class="card-top"><span class="tag">RESEARCH</span><span class="status">IN PROGRESS</span></div>
             <h3>人間っぽいAI、AIっぽい人間！？</h3>
             <p>AIと人間の文章表現はどのように似ていくのか。文章の特徴や相互作用に注目し、問いを立てて調査・発表する探究活動です。</p>
             <div class="card-meta"><span>Generative AI</span><span>Writing</span><span>Research</span></div>
           </article>
-          <article class="card reveal">
+          <article class="card reveal" data-category="creative">
             <div class="card-top"><span class="tag">WORLD BUILDING</span><span class="status">ONGOING IDEA</span></div>
             <h3>Xeros — Worldbuilding Universe</h3>
             <p>超生命体Xerosと惑星Glaevaを中心に、独自の設定や歴史を組み立てるSF世界観プロジェクト。</p>
             <div class="card-meta"><span>Sci-Fi</span><span>Writing</span><span>Worldbuilding</span></div>
           </article>
-          <article class="card reveal">
+          <article class="card reveal" data-category="learning">
             <div class="card-top"><span class="tag">RESEARCH NOTES</span><span class="status">LEARNING</span></div>
             <h3>Geopolitics Research Notes</h3>
             <p>台湾海峡、朝鮮半島、日本の安全保障など、国際情勢に関する情報を集め、複数の視点から整理する個人学習。</p>
             <div class="card-meta"><span>Geopolitics</span><span>History</span><span>Security</span></div>
           </article>
-          <article class="card reveal">
+          <article class="card reveal" data-category="learning">
             <div class="card-top"><span class="tag">ENGINEERING INTEREST</span><span class="status">LEARNING THE BASICS</span></div>
             <h3>故障診断と原因の切り分け</h3>
             <p>身近なデジタル機器の不具合をきっかけに、ソフトウェアとハードウェアの違い、仮説の立て方、検証の進め方に関心を持ちました。</p>
@@ -220,6 +240,11 @@
     </section>
   </main>
 
+  <dialog class="project-dialog" id="projectDialog" aria-labelledby="dialogTitle">
+    <div class="dialog-topline"><span class="mono">PROJECT / DETAIL</span><button class="dialog-close" id="dialogClose" type="button" aria-label="閉じる">×</button></div>
+    <div id="dialogContent"></div>
+  </dialog>
+  <button class="back-to-top" id="backToTop" type="button" aria-label="ページ上部へ戻る">↑</button>
   <footer><div class="container footer-inner"><span>© 2026 Yuma Eto</span><span>CURIOSITY → KNOWLEDGE → CREATION</span></div></footer>
 
   
