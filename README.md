@@ -50,10 +50,26 @@ AI・プログラミング・数学・国際情勢など、気になったこと
 
 ```text
 mysite/
-├── index.html    # サイト本体（HTML・CSS・JavaScript）
-├── favicon.png   # サイトアイコン
-└── README.md     # プロジェクトの説明
+├── index.html       # ページ構造・メタ情報・構造化データ
+├── style.css        # デザイン・レスポンシブ対応
+├── script.js        # テーマ切り替え・言語切り替え・UI制御
+├── favicon.png      # サイトアイコン
+├── ogp.svg          # SNS共有用画像
+├── robots.txt       # クローラー向けの巡回ルール・サイトマップ案内
+├── sitemap.xml      # 検索エンジン向けサイトマップ
+└── README.md        # プロジェクトの説明
 ```
+
+## SEO
+
+- ページタイトルとメタディスクリプションを設定
+- canonical URLで正規URLを明示
+- OGP・X Cardの共有情報を設定
+- JSON-LDでWebSiteとPersonの基本情報を記述
+- `robots.txt` でサイトマップの場所を案内
+- `sitemap.xml` に公開中のトップページを登録
+
+現在は1ページ構成のため、サイトマップにはトップページのみを掲載しています。独立した記事・プロジェクトページを追加した場合は、そのURLもサイトマップに追加してください。
 
 ## Run Locally
 
