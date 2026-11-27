@@ -44,6 +44,7 @@ self.addEventListener('fetch', event => {
         if (response.ok && response.type === 'basic') cache.put(request, response.clone());
         return response;
       }).catch(() => cached);
+      event.waitUntil(refresh.then(() => undefined).catch(() => undefined));
       return cached || await refresh;
     })());
   }
