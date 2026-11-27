@@ -1,3 +1,12 @@
+// Register the service worker to speed up repeat visits with browser-side caching.
+if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/mysite/sw.js', { scope: '/mysite/' }).catch(() => {
+      // The site remains usable even if service-worker registration fails.
+    });
+  }, { once: true });
+}
+
 document.documentElement.classList.add('js');
     try {
       const saved = localStorage.getItem('theme');
