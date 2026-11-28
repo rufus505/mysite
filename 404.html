@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080e1b">
+  <meta name="robots" content="noindex, follow">
+  <meta name="description" content="お探しのページは見つかりませんでした。Yuma Etoのポートフォリオへお戻りください。">
+  <title>404 — Page Not Found | Yuma Eto</title>
+  <link rel="icon" href="/mysite/favicon.png" type="image/png">
+  <link rel="stylesheet" href="/mysite/style.min.css">
+  <script>
+    try {
+      const saved = localStorage.getItem('theme');
+      document.documentElement.dataset.theme = saved || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    } catch (_) {
+      document.documentElement.dataset.theme = 'dark';
+    }
+  </script>
+  <style>
+    .error-page{min-height:100svh;display:grid;place-items:center;position:relative;isolation:isolate;overflow:hidden;padding:110px 0 70px}
+    .error-page::before{content:"";position:absolute;z-index:-2;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:64px 64px;mask-image:linear-gradient(to bottom,transparent,black 18%,black 78%,transparent);opacity:.5}
+    .error-page::after{content:"";position:absolute;z-index:-1;width:min(78vw,720px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(56,135,230,.16),transparent 68%);right:-18%;top:8%;pointer-events:none}
+    .error-content{width:min(760px,100%);text-align:center}
+    .error-code{position:relative;display:inline-block;margin:28px 0 22px;font-size:clamp(120px,27vw,260px);font-weight:800;line-height:.8;letter-spacing:-.11em;color:var(--text);text-shadow:0 18px 70px rgba(56,135,230,.12)}
+    .error-code span{color:var(--accent)}
+    .error-orbit{position:absolute;width:1.55em;height:1.55em;border:1px solid var(--line);border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-22deg)}
+    .error-orbit::before,.error-orbit::after{content:"";position:absolute;border-radius:50%;background:var(--accent);box-shadow:0 0 18px var(--accent)}
+    .error-orbit::before{width:7px;height:7px;top:15%;left:20%}
+    .error-orbit::after{width:4px;height:4px;right:13%;bottom:21%;background:var(--accent-2)}
+    .error-title{font-size:clamp(24px,4vw,36px);letter-spacing:-.05em;margin:12px 0 10px}
+    .error-copy{max-width:470px;margin:0 auto;color:var(--muted);font-size:14px;line-height:1.9}
+    .error-actions{justify-content:center;margin-top:28px}
+    .error-note{margin-top:42px;color:var(--subtle);font:10px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.14em}
+    .error-brand{position:absolute;top:28px;left:max(24px,calc((100% - 1120px)/2));font:500 15px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.12em;text-decoration:none}
+    .error-brand span{color:var(--accent)}
+    @media(max-width:620px){.error-page{padding:90px 0 54px}.error-brand{top:22px;left:18px}.error-code{margin:34px 0 27px}.error-note{margin-top:34px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <main class="error-page">
+    <a class="error-brand" href="/mysite/" aria-label="Yuma Eto — ホーム">YE<span>.</span></a>
+    <div class="container error-content">
+      <div class="eyebrow" style="justify-content:center">LOST IN THE RIGHT DIRECTION</div>
+      <div class="error-code" aria-label="404">4<span>0</span>4<i class="error-orbit" aria-hidden="true"></i></div>
+      <h1 class="error-title">このページは見つかりませんでした。</h1>
+      <p class="error-copy">URLが変更されたか、ページが移動・削除された可能性があります。<br>少し寄り道して、ホームからもう一度探してみてください。</p>
+      <div class="hero-actions error-actions">
+        <a class="button primary" href="/mysite/">ホームへ戻る <span aria-hidden="true">↗</span></a>
+        <a class="button secondary" href="/mysite/#projects">制作を見る <span aria-hidden="true">↘</span></a>
+      </div>
+      <p class="error-note">NOT ALL WHO WANDER ARE LOST — BUT THIS PAGE IS.</p>
+    </div>
+  </main>
+</body>
+</html>
