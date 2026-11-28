@@ -11,8 +11,12 @@
   <link rel="stylesheet" href="/mysite/style.min.css">
   <script>
     try {
-      const saved = localStorage.getItem('theme');
-      document.documentElement.dataset.theme = saved || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      const savedTheme = localStorage.getItem('theme');
+      const savedLanguage = localStorage.getItem('language');
+      document.documentElement.dataset.theme = ['light', 'dark'].includes(savedTheme)
+        ? savedTheme
+        : (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.lang = savedLanguage === 'en' ? 'en' : 'ja';
     } catch (_) {
       document.documentElement.dataset.theme = 'dark';
     }
@@ -42,16 +46,29 @@
   <main class="error-page">
     <a class="error-brand" href="/mysite/" aria-label="Yuma Eto — ホーム">YE<span>.</span></a>
     <div class="container error-content">
-      <div class="eyebrow" style="justify-content:center">LOST IN THE RIGHT DIRECTION</div>
+      <div class="eyebrow" id="errorEyebrow" style="justify-content:center">LOST IN THE RIGHT DIRECTION</div>
       <div class="error-code" aria-label="404">4<span>0</span>4<i class="error-orbit" aria-hidden="true"></i></div>
-      <h1 class="error-title">このページは見つかりませんでした。</h1>
-      <p class="error-copy">URLが変更されたか、ページが移動・削除された可能性があります。<br>少し寄り道して、ホームからもう一度探してみてください。</p>
+      <h1 class="error-title" id="errorTitle">このページは見つかりませんでした。</h1>
+      <p class="error-copy" id="errorCopy">URLが変更されたか、ページが移動・削除された可能性があります。<br>少し寄り道して、ホームからもう一度探してみてください。</p>
       <div class="hero-actions error-actions">
-        <a class="button primary" href="/mysite/">ホームへ戻る <span aria-hidden="true">↗</span></a>
-        <a class="button secondary" href="/mysite/#projects">制作を見る <span aria-hidden="true">↘</span></a>
+        <a class="button primary" id="homeLink" href="/mysite/">ホームへ戻る <span aria-hidden="true">↗</span></a>
+        <a class="button secondary" id="projectsLink" href="/mysite/#projects">制作を見る <span aria-hidden="true">↘</span></a>
       </div>
-      <p class="error-note">NOT ALL WHO WANDER ARE LOST — BUT THIS PAGE IS.</p>
+      <p class="error-note" id="errorNote">NOT ALL WHO WANDER ARE LOST — BUT THIS PAGE IS.</p>
     </div>
   </main>
+  <script>
+    const language = document.documentElement.lang;
+    if (language === 'en') {
+      document.getElementById('errorEyebrow').textContent = 'LOST IN THE RIGHT DIRECTION';
+      document.getElementById('errorTitle').textContent = 'This page could not be found.';
+      document.getElementById('errorCopy').innerHTML = 'The URL may have changed, or the page may have moved or been removed.<br>Take a small detour and start again from the home page.';
+      document.getElementById('homeLink').innerHTML = 'Back to home <span aria-hidden="true">↗</span>';
+      document.getElementById('projectsLink').innerHTML = 'Explore projects <span aria-hidden="true">↘</span>';
+      document.querySelector('.error-brand').setAttribute('aria-label', 'Yuma Eto — Home');
+      document.getElementById('errorCopy').setAttribute('lang', 'en');
+      document.getElementById('errorTitle').setAttribute('lang', 'en');
+    }
+  </script>
 </body>
 </html>
